@@ -11,5 +11,10 @@ class MVPPresenter(private var view: MVPContract.View) : MVPContract.Presenter {
         }
 
         view.showResult(result)
+
+        if(result > 100){
+            view.showToastLimit()
+        }
+
     }
 }

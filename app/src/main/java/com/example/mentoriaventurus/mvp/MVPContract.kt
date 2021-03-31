@@ -4,6 +4,7 @@ interface MVPContract {
 
     interface View {
         fun showResult(result: Int)
+        fun showToastLimit()
     }
 
     interface Presenter {
