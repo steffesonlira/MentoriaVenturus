@@ -8,8 +8,8 @@ import com.example.mentoriaventurus.R
 
 class MVPMainActivity : AppCompatActivity(), MVPContract.View {
 
-    lateinit var textResult: TextView
-    lateinit var mpvPresenter: MVPPresenter
+    private lateinit var textResult: TextView
+    private lateinit var mpvPresenter: MVPPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,16 +20,13 @@ class MVPMainActivity : AppCompatActivity(), MVPContract.View {
         mpvPresenter = MVPPresenter(this)
 
         mpvPresenter.calculate("SUM", 10, 100)
-
     }
 
     override fun showResult(result: Int) {
         textResult.text = result.toString()
-
     }
 
     override fun showToastLimit() {
-
         Toast.makeText(this, "Error result limit 100", Toast.LENGTH_SHORT).show()
     }
 }

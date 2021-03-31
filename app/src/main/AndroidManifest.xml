@@ -10,6 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MentoriaVenturus">
         <activity android:name=".mvp.MVPMainActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".mvvm.MVVMMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
