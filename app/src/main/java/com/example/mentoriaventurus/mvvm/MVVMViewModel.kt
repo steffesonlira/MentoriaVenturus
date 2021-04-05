@@ -32,9 +32,4 @@ class MVVMViewModel {
 
     }
 
-    fun getCalculate(){
-
-
-
-    }
 }
