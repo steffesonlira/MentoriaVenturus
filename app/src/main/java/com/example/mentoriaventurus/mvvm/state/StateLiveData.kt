@@ -2,7 +2,6 @@ package com.example.mentoriaventurus.mvvm.state
 
 import androidx.lifecycle.MutableLiveData
 
-
 class StateLiveData<T>: MutableLiveData<StateData<T>>() {
     /**
      * Use this to put the Data on a LOADING Status
@@ -16,14 +15,14 @@ class StateLiveData<T>: MutableLiveData<StateData<T>>() {
      * @param throwable the error to be handled
      */
     fun postError(throwable: Throwable) {
-        postValue(StateData<T>().error(throwable!!))
+        postValue(StateData<T>().error(throwable))
     }
 
     /**
      * Use this to put the Data on a SUCCESS DataStatus
      * @param data
      */
-    fun postSuccess(data: Int) {
+    fun postSuccess(data: T) {
         postValue(StateData<T>().success(data))
     }
 
@@ -33,5 +32,4 @@ class StateLiveData<T>: MutableLiveData<StateData<T>>() {
     fun postComplete() {
         postValue(StateData<T>().complete())
     }
-
 }
