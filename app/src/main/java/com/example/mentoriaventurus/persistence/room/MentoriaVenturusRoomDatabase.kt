@@ -11,10 +11,13 @@ package com.example.mentoriaventurus.persistence.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.mentoriaventurus.persistence.entities.abilities.AbilityEntity
+import com.example.mentoriaventurus.persistence.entities.PokemonEntity
 
 @Database(
     entities = [
-
+        AbilityEntity::class,
+        PokemonEntity::class
     ],
     version = 1,
     exportSchema = false
