@@ -2,10 +2,11 @@ package com.example.mentoriaventurus.mvvm
 
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mentoriaventurus.R
+import com.example.mentoriaventurus.mvvm.state.DataStatus
 import com.example.mentoriaventurus.mvvm.state.StateData
-import com.example.mentoriaventurus.mvvm.state.StateData.DataStatus.*
 
 
 class MVVMMainActivity : AppCompatActivity() {
@@ -21,11 +22,13 @@ class MVVMMainActivity : AppCompatActivity() {
 
         viewModel = MVVMViewModel()
 
-        //createObservables()
+//        createObservables()
+//        viewModel.calculate("SUM", 10, 2)
 
-        createObservablesAlternative()
+        viewModel.calculate("SUM", 10, 2).observe(
+            this, this::handleResult
+        )
 
-        viewModel.calculate("SUM", 10, 2)
     }
 
 //    private fun createObservables() {
@@ -38,28 +41,16 @@ class MVVMMainActivity : AppCompatActivity() {
 //        })
 //    }
 
-    private fun createObservablesAlternative() {
-        viewModel.calculateListLiveData?.observe(
-            this, this::handleResult
-        )
-
-    }
-
-    private fun handleResult(result: StateData<List<MVVMViewModel>>) {
-        val calculateList: Int
-        val e: Throwable?
-        when (result.getStatus()) {
-
-            SUCCESS ->   calculateList = result.getData()
-
-            ERROR ->   e = result.getError()
-
-            LOADING -> {}
-
-            COMPLETE -> {}
-
-            else -> {}
+    private fun handleResult(result: StateData<Int>) {
+        when (result.status) {
+            DataStatus.LOADING -> {
+                Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
+            }
+            DataStatus.SUCCESS -> textResult.text = result.data?.toString()
+            DataStatus.ERROR -> {
+                Toast.makeText(this, result.error?.message, Toast.LENGTH_SHORT).show()
+            }
+            else -> Unit //COMPLETE
         }
     }
-
 }
