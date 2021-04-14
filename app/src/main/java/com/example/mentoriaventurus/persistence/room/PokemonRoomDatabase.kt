@@ -11,23 +11,30 @@ package com.example.mentoriaventurus.persistence.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.mentoriaventurus.persistence.entities.abilities.AbilityEntity
 import com.example.mentoriaventurus.persistence.entities.PokemonEntity
+import com.example.mentoriaventurus.persistence.entities.abilities.AbilityEntity
+import com.example.mentoriaventurus.persistence.entities.pokemonabilities.PokemonAbilityEntity
+import com.example.mentoriaventurus.persistence.room.dao.AbilityDao
+import com.example.mentoriaventurus.persistence.room.dao.PokemonAbilityDao
+import com.example.mentoriaventurus.persistence.room.dao.PokemonDao
 
 @Database(
     entities = [
         AbilityEntity::class,
+        PokemonAbilityEntity::class,
         PokemonEntity::class
     ],
     version = 1,
     exportSchema = false
 )
-abstract class MentoriaVenturusRoomDatabase : RoomDatabase() {
+abstract class PokemonRoomDatabase : RoomDatabase() {
 
     companion object {
-        const val DATABASE_NAME = "mentoriaventurus.db"
+        const val DATABASE_NAME = "pokemon.db"
     }
 
-//    abstract fun deviceDao(): DeviceDao
+    abstract fun abilityDao(): AbilityDao
+    abstract fun pokemonAbilityDao(): PokemonAbilityDao
+    abstract fun pokemonDao(): PokemonDao
 
 }
