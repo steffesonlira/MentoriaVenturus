@@ -10,6 +10,7 @@
 package com.example.mentoriaventurus.rest
 
 import com.example.mentoriaventurus.BuildConfig
+import com.example.mentoriaventurus.rest.api.PokemonApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -21,6 +22,22 @@ object BuildRetrofit {
 
     private const val TIMEOUT = 30L // 30 seconds
 
+    val builder = OkHttpClient.Builder()
+        .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+        .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
+        .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+
+    val httpClient = builder.build()
+
+    private var retrofit: Retrofit = with(Retrofit.Builder()) {
+        baseUrl(BuildConfig.API_BASE_URL)
+        client(httpClient)
+        addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // Para usar RXJava
+        addConverterFactory(ScalarsConverterFactory.create()) // Para pegar String do response
+        addConverterFactory(GsonConverterFactory.create()) // Para converter Json
+        build()
+    }
+
 //    operator fun invoke(apiURL: String, httpClient: OkHttpClient): Retrofit =
 //        with(Retrofit.Builder()) {
 //            baseUrl(apiURL)
@@ -31,21 +48,27 @@ object BuildRetrofit {
 //            build()
 //        }
 
-    operator fun invoke(): Retrofit {
-        val builder = OkHttpClient.Builder()
-            .readTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+//    operator fun invoke(): Retrofit {
+//        val builder = OkHttpClient.Builder()
+//            .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+//            .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
+//            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+//
+//        val httpClient = builder.build()
+//
+//        retrofit = with(Retrofit.Builder()) {
+//            baseUrl(BuildConfig.API_BASE_URL)
+//            client(httpClient)
+//            addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // Para usar RXJava
+//            addConverterFactory(ScalarsConverterFactory.create()) // Para pegar String do response
+//            addConverterFactory(GsonConverterFactory.create()) // Para converter Json
+//            build()
+//        }
+//
+//        return retrofit
+//    }
 
-        val httpClient = builder.build()
-
-        return with(Retrofit.Builder()) {
-            baseUrl(BuildConfig.API_BASE_URL)
-            client(httpClient)
-            addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // Para usar RXJava
-            addConverterFactory(ScalarsConverterFactory.create()) // Para pegar String do response
-            addConverterFactory(GsonConverterFactory.create()) // Para converter Json
-            build()
-        }
+    fun apiCallPokemon(): PokemonApi {
+        return retrofit.create(PokemonApi::class.java)
     }
 }

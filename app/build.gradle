@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.mentoriaventurus"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -26,7 +26,7 @@ android {
             applicationIdSuffix ".debug"
             versionNameSuffix '-DEV'
 
-            buildConfigField("String", "API_BASE_URL", "\"https://pokeapi.co//\"")
+            buildConfigField("String", "API_BASE_URL", "\"https://pokeapi.co/\"")
         }
 
         release {
