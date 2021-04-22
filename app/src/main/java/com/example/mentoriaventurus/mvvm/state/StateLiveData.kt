@@ -1,6 +1,7 @@
 package com.example.mentoriaventurus.mvvm.state
 
 import androidx.lifecycle.MutableLiveData
+import com.example.mentoriaventurus.rest.responses.ResultResponse
 
 class StateLiveData<T>: MutableLiveData<StateData<T>>() {
     /**
@@ -27,9 +28,18 @@ class StateLiveData<T>: MutableLiveData<StateData<T>>() {
     }
 
     /**
+     * Use this to put the Data on a SUCCESS ResponseStatus the ResultResponse
+     * @param results
+     */
+    fun resultSuccess(results: List<ResultResponse>) {
+        postValue(StateData<T>().resultSuccess(results))
+    }
+
+    /**
      * Use this to put the Data on a COMPLETE DataStatus
      */
     fun postComplete() {
         postValue(StateData<T>().complete())
     }
+
 }

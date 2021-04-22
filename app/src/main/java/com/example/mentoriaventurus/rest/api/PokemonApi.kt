@@ -9,13 +9,16 @@
 
 package com.example.mentoriaventurus.rest.api
 
-import com.example.mentoriaventurus.rest.responses.PokemonResponse
+import com.example.mentoriaventurus.rest.responses.PokeAPIResponse
 import retrofit2.Call
 import retrofit2.http.GET
 
 interface PokemonApi {
 
     @GET("/api/v2/pokemon")
-    fun fetchPokemons(): Call<PokemonResponse>
+    fun fetchPokemons(): Call<PokeAPIResponse>
+
+    @GET("/api/v2/ability")
+    fun fetchAbities(): Call<PokeAPIResponse>
 
 }

@@ -1,7 +1,7 @@
 package com.example.mentoriaventurus.mvp
 
 import com.example.mentoriaventurus.rest.BuildRetrofit
-import com.example.mentoriaventurus.rest.responses.PokemonResponse
+import com.example.mentoriaventurus.rest.responses.PokeAPIResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,11 +23,11 @@ class MVPPresenter(private var view: MVPContract.View) : MVPContract.Presenter {
     }
 
     override fun fetchPokemons() {
-        val call: Call<PokemonResponse> = BuildRetrofit.apiCallPokemon().fetchPokemons()
-        call.enqueue(object : Callback<PokemonResponse> {
+        val call: Call<PokeAPIResponse> = BuildRetrofit.apiCallPokemon().fetchPokemons()
+        call.enqueue(object : Callback<PokeAPIResponse> {
             override fun onResponse(
-                call: Call<PokemonResponse>,
-                response: Response<PokemonResponse>
+                call: Call<PokeAPIResponse>,
+                response: Response<PokeAPIResponse>
             ) {
                 if (response.isSuccessful) {
                     val body = response.body()
@@ -46,7 +46,7 @@ class MVPPresenter(private var view: MVPContract.View) : MVPContract.Presenter {
                 }
             }
 
-            override fun onFailure(call: Call<PokemonResponse>, t: Throwable) {
+            override fun onFailure(call: Call<PokeAPIResponse>, t: Throwable) {
                 view.showToastLimit()
             }
         })

@@ -22,12 +22,16 @@ class MVVMMainActivity : AppCompatActivity() {
 
         viewModel = MVVMViewModel()
 
+        viewModel.fetchAbilities().observe(
+            this, this::handleResult
+        )
+
 //        createObservables()
 //        viewModel.calculate("SUM", 10, 2)
 
-        viewModel.calculate("SUM", 10, 2).observe(
-            this, this::handleResult
-        )
+//        viewModel.calculate("SUM", 10, 2).observe(
+//            this, this::handleResult
+//        )
 
     }
 
@@ -41,14 +45,14 @@ class MVVMMainActivity : AppCompatActivity() {
 //        })
 //    }
 
-    private fun handleResult(result: StateData<Int>) {
-        when (result.status) {
+    private fun handleResult(resultResponse: StateData<Int>) {
+        when (resultResponse.status) {
             DataStatus.LOADING -> {
                 Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
             }
-            DataStatus.SUCCESS -> textResult.text = result.data?.toString()
+            DataStatus.SUCCESS -> textResult.text = resultResponse.result?.toString()
             DataStatus.ERROR -> {
-                Toast.makeText(this, result.error?.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, resultResponse.error?.message, Toast.LENGTH_SHORT).show()
             }
             else -> Unit //COMPLETE
         }
