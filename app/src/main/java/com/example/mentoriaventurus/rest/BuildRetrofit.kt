@@ -13,7 +13,7 @@ import com.example.mentoriaventurus.BuildConfig
 import com.example.mentoriaventurus.rest.api.PokemonApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
@@ -32,7 +32,7 @@ object BuildRetrofit {
     private var retrofit: Retrofit = with(Retrofit.Builder()) {
         baseUrl(BuildConfig.API_BASE_URL)
         client(httpClient)
-        addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // Para usar RXJava
+        addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // Para usar RXJava
         addConverterFactory(ScalarsConverterFactory.create()) // Para pegar String do response
         addConverterFactory(GsonConverterFactory.create()) // Para converter Json
         build()

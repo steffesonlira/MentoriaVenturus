@@ -14,22 +14,11 @@ class StateData<T> {
     @Nullable
     var data: T? = null
 
-    @Nullable
-    var result: List<ResultResponse>? = null
-
     var error: Throwable? = null
 
     fun StateData() {
         status = DataStatus.CREATED
         error = null
-    }
-
-    fun resultSuccess(result: List<ResultResponse>): StateData<T>? {
-        status = DataStatus.SUCCESS
-        this.result = result
-        error = null
-
-        return this
     }
 
     fun loading(): StateData<T>? {

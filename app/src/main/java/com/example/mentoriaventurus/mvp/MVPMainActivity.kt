@@ -24,6 +24,11 @@ class MVPMainActivity : AppCompatActivity(), MVPContract.View {
         mpvPresenter.fetchPokemons()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mpvPresenter.disposable.clear()
+    }
+
     override fun showResult(result: Int) {
         textResult.text = result.toString()
     }
@@ -38,5 +43,9 @@ class MVPMainActivity : AppCompatActivity(), MVPContract.View {
 
     override fun showToastLimit() {
         Toast.makeText(this, "Error result limit 100", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showApiErrorMessage(throwable: Throwable) {
+        Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT).show()
     }
 }

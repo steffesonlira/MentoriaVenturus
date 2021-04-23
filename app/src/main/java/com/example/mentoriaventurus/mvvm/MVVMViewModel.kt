@@ -2,7 +2,7 @@ package com.example.mentoriaventurus.mvvm
 
 import com.example.mentoriaventurus.mvvm.state.StateLiveData
 import com.example.mentoriaventurus.rest.BuildRetrofit
-import com.example.mentoriaventurus.rest.responses.PokeAPIResponse
+import com.example.mentoriaventurus.rest.responses.AbilityResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -10,7 +10,7 @@ import retrofit2.Response
 class MVVMViewModel {
 
     private var calculateLiveData: StateLiveData<Int> = StateLiveData()
-    private var fetchAbilities: StateLiveData<Int> = StateLiveData()
+    private var abilities: StateLiveData<AbilityResponse> = StateLiveData()
 
 
 //    val result = MutableLiveData<Int>()
@@ -37,40 +37,36 @@ class MVVMViewModel {
         return calculateLiveData
     }
 
-    fun fetchAbilities(): StateLiveData<Int>{
-        val call: Call<PokeAPIResponse> = BuildRetrofit.apiCallPokemon().fetchAbities()
-        call.enqueue(object : Callback<PokeAPIResponse> {
+    fun fetchAbilities(): StateLiveData<AbilityResponse> {
+        val call: Call<AbilityResponse> = BuildRetrofit.apiCallPokemon().fetchAbilities()
+        call.enqueue(object : Callback<AbilityResponse> {
             override fun onResponse(
-                call: Call<PokeAPIResponse>,
-                response: Response<PokeAPIResponse>
+                call: Call<AbilityResponse>,
+                response: Response<AbilityResponse>
             ) {
                 if (response.isSuccessful) {
                     val body = response.body()
                     if (body == null) {
-                        fetchAbilities.postError(Throwable("O resultado não contém valores."))
+                        abilities.postError(Throwable("O resultado não contém valores."))
 
                     } else {
-                        val results = body.results
-                        if (results.isEmpty()) {
-                            fetchAbilities.postError(Throwable("O resultado não contém valores."))
-                        } else {
-
-                            fetchAbilities.resultSuccess(results)
-                        }
+                        abilities.postSuccess(body)
                     }
                 } else {
-                    fetchAbilities.postError(
-                        Throwable("Houve um erro ao tentar obter as " +
-                            "informações do servidor")
+                    abilities.postError(
+                        Throwable(
+                            "Houve um erro ao tentar obter as " +
+                                    "informações do servidor"
+                        )
                     )
                 }
             }
 
-            override fun onFailure(call: Call<PokeAPIResponse>, t: Throwable) {
-                fetchAbilities.postError(Throwable(t.message))
+            override fun onFailure(call: Call<AbilityResponse>, t: Throwable) {
+                abilities.postError(Throwable(t.message))
             }
         })
 
-        return fetchAbilities
+        return abilities
     }
 }

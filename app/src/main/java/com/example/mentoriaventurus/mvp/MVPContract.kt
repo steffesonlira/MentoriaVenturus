@@ -10,6 +10,7 @@ interface MVPContract {
         fun showResultPokemons(results: List<ResultResponse>)
         fun showEmptyResultMessage()
         fun showToastLimit()
+        fun showApiErrorMessage(throwable: Throwable)
     }
 
     /** Onde ficam as regras de negócio */

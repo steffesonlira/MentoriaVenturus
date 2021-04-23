@@ -9,16 +9,24 @@
 
 package com.example.mentoriaventurus.rest.api
 
-import com.example.mentoriaventurus.rest.responses.PokeAPIResponse
+import com.example.mentoriaventurus.rest.responses.AbilityResponse
+import com.example.mentoriaventurus.rest.responses.PokemonResponse
+import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Call
 import retrofit2.http.GET
 
 interface PokemonApi {
 
+//    Retrofit
     @GET("/api/v2/pokemon")
-    fun fetchPokemons(): Call<PokeAPIResponse>
+    fun fetchPokemons(): Call<PokemonResponse>
 
+//    RxJava
+//    @GET("/api/v2/pokemon")
+//    fun fetchPokemons(): Flowable<PokemonResponse>
+
+//    Coroutines
     @GET("/api/v2/ability")
-    fun fetchAbities(): Call<PokeAPIResponse>
+    fun fetchAbilities(): Call<AbilityResponse>
 
 }

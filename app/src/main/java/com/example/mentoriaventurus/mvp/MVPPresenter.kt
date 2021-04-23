@@ -1,13 +1,18 @@
 package com.example.mentoriaventurus.mvp
 
 import com.example.mentoriaventurus.rest.BuildRetrofit
-import com.example.mentoriaventurus.rest.responses.PokeAPIResponse
+import com.example.mentoriaventurus.rest.responses.AbilityResponse
+import com.example.mentoriaventurus.rest.responses.PokemonResponse
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class MVPPresenter(private var view: MVPContract.View) : MVPContract.Presenter {
+
+    val disposable = CompositeDisposable()
 
     override fun calculate(operation: String, firstValue: Int, secondValue: Int) {
         val result = when (operation) {
@@ -22,12 +27,13 @@ class MVPPresenter(private var view: MVPContract.View) : MVPContract.Presenter {
         if (result > 100) view.showToastLimit()
     }
 
+//    Retrofit
     override fun fetchPokemons() {
-        val call: Call<PokeAPIResponse> = BuildRetrofit.apiCallPokemon().fetchPokemons()
-        call.enqueue(object : Callback<PokeAPIResponse> {
+        val call: Call<PokemonResponse> = BuildRetrofit.apiCallPokemon().fetchPokemons()
+        call.enqueue(object : Callback<PokemonResponse> {
             override fun onResponse(
-                call: Call<PokeAPIResponse>,
-                response: Response<PokeAPIResponse>
+                call: Call<PokemonResponse>,
+                response: Response<PokemonResponse>
             ) {
                 if (response.isSuccessful) {
                     val body = response.body()
@@ -46,9 +52,29 @@ class MVPPresenter(private var view: MVPContract.View) : MVPContract.Presenter {
                 }
             }
 
-            override fun onFailure(call: Call<PokeAPIResponse>, t: Throwable) {
-                view.showToastLimit()
+            override fun onFailure(call: Call<PokemonResponse>, t: Throwable) {
+                view.showApiErrorMessage(t)
             }
         })
     }
+
+    //    RxJava
+//    override fun fetchPokemons() {
+//        val toDispose = BuildRetrofit.apiCallPokemon()
+//            .fetchPokemons()
+//            .observeOn(mainThread())
+//            .subscribeBy(
+//                onNext = {
+//                    if (it.results.isEmpty()) {
+//                        view.showEmptyResultMessage()
+//                    } else {
+//                        view.showResultPokemons(it.results)
+//                    }
+//                },
+//                onError = { view.showApiErrorMessage(it) }
+//            )
+//
+//        disposable.add(toDispose)
+//
+//    }
 }

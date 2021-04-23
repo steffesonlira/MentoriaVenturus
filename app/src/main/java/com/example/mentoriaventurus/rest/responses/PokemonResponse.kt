@@ -1,6 +1,6 @@
 package com.example.mentoriaventurus.rest.responses
 
-data class PokeAPIResponse(
+data class PokemonResponse(
     val count: Long,
     val next: String?,
     val previous: String?,

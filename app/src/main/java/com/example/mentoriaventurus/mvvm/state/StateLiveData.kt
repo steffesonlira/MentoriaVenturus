@@ -28,14 +28,6 @@ class StateLiveData<T>: MutableLiveData<StateData<T>>() {
     }
 
     /**
-     * Use this to put the Data on a SUCCESS ResponseStatus the ResultResponse
-     * @param results
-     */
-    fun resultSuccess(results: List<ResultResponse>) {
-        postValue(StateData<T>().resultSuccess(results))
-    }
-
-    /**
      * Use this to put the Data on a COMPLETE DataStatus
      */
     fun postComplete() {
