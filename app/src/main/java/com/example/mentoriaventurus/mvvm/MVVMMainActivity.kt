@@ -23,9 +23,9 @@ class MVVMMainActivity : AppCompatActivity() {
 
         viewModel = MVVMViewModel()
 
-        viewModel.fetchAbilities().observe(
-            this, this::handleResultAbility
-        )
+//        viewModel.fetchAbilities().observe(
+//            this, this::handleResultAbility
+//        )
 
 //        createObservables()
 //        viewModel.calculate("SUM", 10, 2)

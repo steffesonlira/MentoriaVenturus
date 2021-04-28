@@ -10,7 +10,7 @@ import com.example.mentoriaventurus.rest.responses.ResultResponse
 class MVPMainActivity : AppCompatActivity(), MVPContract.View {
 
     private lateinit var textResult: TextView
-    private lateinit var mpvPresenter: MVPPresenter
+    private lateinit var mvpPresenter: MVPPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,15 +18,18 @@ class MVPMainActivity : AppCompatActivity(), MVPContract.View {
 
         textResult = findViewById(R.id.tv_result)
 
-        mpvPresenter = MVPPresenter(this)
+        mvpPresenter = MVPPresenter(this)
 
 //        mpvPresenter.calculate("SUM", 10, 100)
-        mpvPresenter.fetchPokemons()
+//        mpvPresenter.fetchPokemons()
+        mvpPresenter.fetchAbilities()
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mpvPresenter.disposable.clear()
+        mvpPresenter.disposable.clear()
+        mvpPresenter.cleanup()
     }
 
     override fun showResult(result: Int) {

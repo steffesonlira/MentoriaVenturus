@@ -15,7 +15,9 @@ interface MVPContract {
 
     /** Onde ficam as regras de negócio */
     interface Presenter {
+        fun cleanup()
         fun calculate(operation: String, firstValue: Int, secondValue: Int)
         fun fetchPokemons()
+        fun fetchAbilities()
     }
 }

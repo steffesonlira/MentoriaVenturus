@@ -37,36 +37,36 @@ class MVVMViewModel {
         return calculateLiveData
     }
 
-    fun fetchAbilities(): StateLiveData<AbilityResponse> {
-        val call: Call<AbilityResponse> = BuildRetrofit.apiCallPokemon().fetchAbilities()
-        call.enqueue(object : Callback<AbilityResponse> {
-            override fun onResponse(
-                call: Call<AbilityResponse>,
-                response: Response<AbilityResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    if (body == null) {
-                        abilities.postError(Throwable("O resultado não contém valores."))
-
-                    } else {
-                        abilities.postSuccess(body)
-                    }
-                } else {
-                    abilities.postError(
-                        Throwable(
-                            "Houve um erro ao tentar obter as " +
-                                    "informações do servidor"
-                        )
-                    )
-                }
-            }
-
-            override fun onFailure(call: Call<AbilityResponse>, t: Throwable) {
-                abilities.postError(Throwable(t.message))
-            }
-        })
-
-        return abilities
-    }
+//    fun fetchAbilities(): StateLiveData<AbilityResponse> {
+//        val call: Call<AbilityResponse> = BuildRetrofit.apiCallPokemon().fetchAbilities()
+//        call.enqueue(object : Callback<AbilityResponse> {
+//            override fun onResponse(
+//                call: Call<AbilityResponse>,
+//                response: Response<AbilityResponse>
+//            ) {
+//                if (response.isSuccessful) {
+//                    val body = response.body()
+//                    if (body == null) {
+//                        abilities.postError(Throwable("O resultado não contém valores."))
+//
+//                    } else {
+//                        abilities.postSuccess(body)
+//                    }
+//                } else {
+//                    abilities.postError(
+//                        Throwable(
+//                            "Houve um erro ao tentar obter as " +
+//                                    "informações do servidor"
+//                        )
+//                    )
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<AbilityResponse>, t: Throwable) {
+//                abilities.postError(Throwable(t.message))
+//            }
+//        })
+//
+//        return abilities
+//    }
 }
