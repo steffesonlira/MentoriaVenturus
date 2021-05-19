@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_pokemon"
+    app:startDestination="@id/pokemonFragment">
+
+    <fragment
+        android:id="@+id/pokemonFragment"
+        android:name="com.example.mentoriaventurus.features.pokemon.pokemon.PokemonFragment"
+        android:label="fragment_pokemon"
+        tools:layout="@layout/fragment_pokemon" >
+        <action
+            android:id="@+id/action_pokemonFragment_to_abilityFragment"
+            app:destination="@id/abilityFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/abilityFragment"
+        android:name="com.example.mentoriaventurus.features.pokemon.ability.AbilityFragment"
+        android:label="fragment_ability"
+        tools:layout="@layout/fragment_ability" >
+        <argument
+            android:name="pokemonName"
+            app:argType="string" />
+    </fragment>
+
+</navigation>
