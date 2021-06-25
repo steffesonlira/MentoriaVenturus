@@ -7,23 +7,17 @@ import com.example.mentoriaventurus.data.persistence.entities.abilities.AbilityE
 interface AbilityDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(abilityEntity: AbilityEntity)
+    fun insert(entity: AbilityEntity)
 
     @Query("SELECT * FROM abilities")
-    fun getAllAbilities(): List<AbilityEntity>
+    fun loadAll(): List<AbilityEntity>
 
     @Query("SELECT * FROM abilities WHERE name = :name")
-    fun getAbilityByName(name: String): AbilityEntity
+    fun loadByName(name: String): AbilityEntity
 
 //    @Query("SELECT * FROM abilities WHERE name = :name")
 //    fun getAllPokemonsByAbility(name: String): List<AbilityAndPokemonAbilityItem>
 
-    @Query("SELECT pa.id, p.* FROM pokemon_abilities AS pa " +
-            "INNER JOIN abilities AS a pa.ability_id = a.ability_id " +
-            "INNER JOIN pokemons AS p ON pa.pokemon_id = p.pokemon_id " +
-            "WHERE a.name = :name")
-    fun getAllPokemonsByAbility(name: String): List<AbilityAndPokemonAbilityItem>
-
     @Delete
-    fun delete(abilityEntity: AbilityEntity)
+    fun delete(entity: AbilityEntity)
 }

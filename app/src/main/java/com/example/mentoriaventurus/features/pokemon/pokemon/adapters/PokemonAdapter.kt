@@ -9,5 +9,38 @@
 
 package com.example.mentoriaventurus.features.pokemon.pokemon.adapters
 
-class PokemonAdapter {
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mentoriaventurus.databinding.ItemPokemonBinding
+import com.example.mentoriaventurus.domain.models.Result
+import com.example.mentoriaventurus.features.pokemon.pokemon.paging.pokemon.PokemonComparator
+
+class PokemonAdapter: PagingDataAdapter<Result, PokemonAdapter.PokemonViewHolder>(PokemonComparator) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
+        val inflate = LayoutInflater.from(parent.context)
+        val itemBinding: ItemPokemonBinding = ItemPokemonBinding.inflate(inflate)
+
+        return PokemonViewHolder(itemBinding)
+    }
+
+    override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
+        val pokemon: Result = getItem(position)!!
+        holder.bind(pokemon)
+    }
+
+    inner class PokemonViewHolder(
+        private val itemBinding: ItemPokemonBinding
+    ) : RecyclerView.ViewHolder(itemBinding.root) {
+
+        fun bind(row: Result) {
+            itemBinding.run {
+                textName.text = row.name
+            }
+        }
+    }
+
 }

@@ -9,21 +9,14 @@
 
 package com.example.mentoriaventurus.data.rest.api
 
+import com.example.mentoriaventurus.data.rest.responses.AbilityResponse
 import com.example.mentoriaventurus.data.rest.responses.PokemonResponse
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Flowable
 import retrofit2.http.GET
-import retrofit2.http.Query
 
-interface PokemonApi {
+interface AbilityApi {
 
-//    Retrofit
-//    @GET("/api/v2/pokemon")
-//    fun fetchPokemons(): Call<PokemonResponse>
-
-    //    RxJava
-    @GET("/api/v2/pokemon")
-    fun fetchPokemons(
-        @Query("offset") offset: Int,
-        @Query("limit") limit: Int = 20
-    ): Single<PokemonResponse>
+//    Coroutines
+    @GET("/api/v2/ability")
+    suspend fun fetchAbilities(): AbilityResponse
 }

@@ -12,6 +12,7 @@ package com.example.mentoriaventurus.data.rest
 import com.example.mentoriaventurus.data.rest.models.ApiUrl
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -22,6 +23,7 @@ object BuildRetrofit {
         with(Retrofit.Builder()) {
             baseUrl(apiURL.baseUrl)
             client(httpClient)
+            addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // Para usar RXJava
             addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // Para usar RXJava
             addConverterFactory(ScalarsConverterFactory.create()) // Para pegar String do response
             addConverterFactory(GsonConverterFactory.create()) // Para converter Json

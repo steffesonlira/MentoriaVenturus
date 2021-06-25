@@ -7,23 +7,21 @@
  * with the terms of the license agreement you entered into with Samsung Eletrônica da Amazônia Ltda.
  */
 
-package com.example.mentoriaventurus.data.rest.api
+package com.example.mentoriaventurus.data.rest.mappers
 
 import com.example.mentoriaventurus.data.rest.responses.PokemonResponse
-import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Query
+import com.example.mentoriaventurus.domain.models.Pokemon
 
-interface PokemonApi {
+class PokemonMapper(
+    private val resultMapper: ResultMapper
+) {
 
-//    Retrofit
-//    @GET("/api/v2/pokemon")
-//    fun fetchPokemons(): Call<PokemonResponse>
-
-    //    RxJava
-    @GET("/api/v2/pokemon")
-    fun fetchPokemons(
-        @Query("offset") offset: Int,
-        @Query("limit") limit: Int = 20
-    ): Single<PokemonResponse>
+    fun fromResponse(response: PokemonResponse): Pokemon = with(response) {
+        Pokemon(
+            count = count,
+            next = next,
+            previous = previous,
+            results = results.map { resultMapper.fromResponse(it) }
+        )
+    }
 }
