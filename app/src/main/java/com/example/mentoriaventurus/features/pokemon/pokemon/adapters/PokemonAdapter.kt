@@ -10,15 +10,17 @@
 package com.example.mentoriaventurus.features.pokemon.pokemon.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mentoriaventurus.databinding.ItemPokemonBinding
 import com.example.mentoriaventurus.domain.models.Result
 import com.example.mentoriaventurus.features.pokemon.pokemon.paging.pokemon.PokemonComparator
 
-class PokemonAdapter: PagingDataAdapter<Result, PokemonAdapter.PokemonViewHolder>(PokemonComparator) {
+class PokemonAdapter :
+    PagingDataAdapter<Result, PokemonAdapter.PokemonViewHolder>(PokemonComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val inflate = LayoutInflater.from(parent.context)
@@ -37,6 +39,10 @@ class PokemonAdapter: PagingDataAdapter<Result, PokemonAdapter.PokemonViewHolder
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(row: Result) {
+            addLoadStateListener { loadStates ->
+                itemBinding.pgLoading.visibility =
+                    if (loadStates.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+            }
             itemBinding.run {
                 textName.text = row.name
             }
